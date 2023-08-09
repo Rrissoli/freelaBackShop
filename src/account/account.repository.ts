@@ -22,7 +22,7 @@ export class AccountRepository {
         )
         return possivelAccount
     }
-    async findOne(id: string, dadosAtualizar : Partial<AccountEntity>){
+    async update(id: string, dadosAtualizar : Partial<AccountEntity>){
         const account = this.accounts.find(item => item.id == id)
         if(!account){
             throw new Error("Conta não existe")
@@ -31,6 +31,12 @@ export class AccountRepository {
             if(chave == id) return
             account[chave] = valor
         })
+        return account
+    }
+    async delete(id: string){
+        const account = this.accounts.find(item => item.id == id)
+        const index = this.accounts.indexOf(account)
+        this.accounts.splice(index, 1)
         return account
     }
 }
